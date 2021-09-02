@@ -1,10 +1,28 @@
-POST http://localhost:3000
+POST http://localhost:3000/api/v1/tours
 Content-Type: application/json
 
-{}
+{
+ "name": "Test Tour",
+  "duration": 10,
+  "difficulty": "easy"
+}
 
 ###
-GET http://localhost:3000
+GET http://localhost:3000/api/v1/tours
 Accept: text/json
 
 ###
+GET http://localhost:3000/api/v1/tours/5//58
+Accept: text/json
+
+###
+PATCH http://localhost:3000/api/v1/tours/8
+Content-Type: application/json
+
+{
+  "duration": 3,
+  "name": "asdf"
+}
+
+###
+DELETE http://localhost:3000/api/v1/tours/13
