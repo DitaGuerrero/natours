@@ -8,8 +8,12 @@ const app = express();
 //  The order middleware appears will be the order they apply to routes
 
 //Middleware Stack (These middlewares will apply to every route)
-app.use(morgan('dev'));
 
+if (process.env.NODE_ENV === 'development') {
+  console.log(process.env.NODE_ENV);
+  app.use(morgan('dev')); //log to the console the status response
+}
+//Parse to object the request and response
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -22,6 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(`${__dirname}/public`));
 //These routers are middleware as well, so we can use app.use
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);

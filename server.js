@@ -1,6 +1,21 @@
-const app = require('./app');
-const port = 3000;
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+//Loading environmental variables
+dotenv.config({ path: './config.env' });
+const app = require('./app.js');
 
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('DB connection successful');
+  });
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
