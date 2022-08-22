@@ -9,10 +9,10 @@ const app = express();
 
 //Middleware Stack (These middlewares will apply to every route)
 
-if (process.env.NODE_ENV === 'development') {
-  console.log(process.env.NODE_ENV);
-  app.use(morgan('dev')); //log to the console the status response
-}
+// if (process.env.NODE_ENV === 'development') {
+//   console.log(process.env.NODE_ENV);
+//   app.use(morgan('dev')); //log to the console the status response
+// }
 //Parse to object the request and response
 app.use(express.json());
 
