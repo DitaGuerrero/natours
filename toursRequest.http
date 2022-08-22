@@ -1,29 +1,74 @@
+### CreateTour
 POST http://localhost:3000/api/v1/tours
 Content-Type: application/json
 
 {
- "name": "Test Tour",
-  "duration": 10,
-  "difficulty": "easy",
-  "price": 48
+  "name": "Secret Tour",
+  "duration": 6,
+  "ratingsAverage": 4.8,
+  "price": 797,
+  "ratingsQuantity": 18,
+  "images": [
+    "tour-8-1.jpg",
+    "tour-8-2.jpg",
+    "tour-8-3.jpg"
+  ],
+  "startDates": [
+    "2022-01-05T10:00:00.000Z",
+    "2022-02-12T10:00:00.000Z",
+    "2023-01-06T10:00:00.000Z"
+  ],
+  "maxGroupSize": 10,
+  "difficulty": "difficult",
+  "summary": "Exciting adventure in the snow with snowboarding and skiting",
+  "description": "Sed do eiusmod tempor ncjnsdc jndcjhbsudcb uhsdbc shadbch jhbdhc jbshdbcb jsdhbcgsbdj chbhsdgvcjhsabducywge cuhbdhcbs dhcgvbshd cgsvdcjh sgdchbjsd cbgsadbcj shdcvhsd bchsvdcjhs dbcjhsad bcjashdbc shd cbjasdb cjashdcb jashdb cjashdb cjhsadb cuysbd cjhdbcuysbc jdhscb usydb cjshadcbuaysbcjhdsbcusaybdchjsbdc jsdhcb",
+  "imageCover": "tour-3-cover.jpg",
+  "secretTour": true
 }
 
-###
+### GetAllTours
 GET http://localhost:3000/api/v1/tours
 Accept: text/json
 
-###
-GET http://localhost:3000/api/v1/tours/5
+### FilterTours
+GET http://localhost:3000/api/v1/tours?duration[gte]=5&difficulty=easy&sort=price&price[lt]=1500
 Accept: text/json
 
-###
-PATCH http://localhost:3000/api/v1/tours/8
+### SortingTours
+GET http://localhost:3000/api/v1/tours?sort=price,-ratingsAverage
+Accept: text/json
+
+### Pagination
+GET http://localhost:3000/api/v1/tours?page=2
+Accept: text/json
+
+### LimitFields
+GET http://localhost:3000/api/v1/tours?fields=price,ratingsAverage
+Accept: text/json
+
+### GetTourById
+GET http://localhost:3000/api/v1/tours/6303abe589ffb04054cdd399?fields=name,duration
+Accept: text/json
+
+### TopFiveCheap
+GET http://localhost:3000/api/v1/tours/top-5-cheap
+Accept: text/json
+
+### GetTourStats
+GET http://localhost:3000/api/v1/tours/tour-stats
+Accept: text/json
+
+### GetMonthlyPlan
+GET http://localhost:3000/api/v1/tours/monthly-plan/2021
+Accept: text/json
+
+### UpdateTourById
+PATCH http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26a
 Content-Type: application/json
 
 {
-  "duration": 3,
-  "name": "asdf"
+  "ratingsAverage": 4.8
 }
 
-###
-DELETE http://localhost:3000/api/v1/tours/13
+### DeleteTourById
+DELETE http://localhost:3000/api/v1/tours/62fff93ee91f7d2998cbe32e
