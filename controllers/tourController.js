@@ -237,9 +237,9 @@ exports.updateTour = async (req, res) => {
       },
     });
   } catch (e) {
-    res.status(200).json({
+    res.status(404).json({
       status: 'fail',
-      message: 'Tour not found',
+      message: e,
     });
   }
 };

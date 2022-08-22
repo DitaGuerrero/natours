@@ -8,13 +8,23 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'A tour must have a name'],
       unique: true,
       trim: true,
+      maxlength: [40, 'A tour name must have less or equal than 40 characters'],
+      minlength: [10, 'A tour name must have more or equal than 10 characters'],
+      // Using Validator.js library
+      // validate: [validator.isAlpha, 'Tour name must contain only letters'],
     },
     slug: String,
     duration: {
       type: Number,
       required: [true, 'A tour must have a duration'],
     },
-    difficulty: String,
+    difficulty: {
+      type: String,
+      enum: {
+        values: ['easy', 'medium', 'difficult'],
+        message: 'Difficulty may only be easy, medium or difficult',
+      },
+    },
     maxGroupSize: {
       type: Number,
       required: [true, 'A tour must have a group size'],
@@ -23,12 +33,28 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    ratingsAverage: { type: Number, default: 4.5 },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, 'Rating must be above 1.0'],
+      max: [5, 'Rating must be below 5.0'],
+    },
     price: {
       type: Number,
       required: [true, 'A tour must have a price'],
     },
-    priceDiscount: Number,
+    priceDiscount: {
+      type: Number,
+      // Custom validator, this only will work when creatinga new doc not when
+      // we are updating an existing one
+      validate: {
+        validator: function (priceDiscount) {
+          // True will pass the validation, false will throw an error
+          return priceDiscount < this.price;
+        },
+        message: 'Discount price ({VALUE}) must be smaller than the tour price',
+      },
+    },
     summary: {
       type: String,
       trim: true,
@@ -47,6 +73,7 @@ const tourSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
       select: false, //Permanently hide this field
+      //  min and max works also for dates as validators
     },
     startDates: {
       type: [Date],

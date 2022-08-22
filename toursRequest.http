@@ -3,10 +3,11 @@ POST http://localhost:3000/api/v1/tours
 Content-Type: application/json
 
 {
-  "name": "Secret Tour",
+  "name": "Test Tour 5",
   "duration": 6,
   "ratingsAverage": 4.8,
   "price": 797,
+  "priceDiscount": 800,
   "ratingsQuantity": 18,
   "images": [
     "tour-8-1.jpg",
@@ -47,7 +48,7 @@ GET http://localhost:3000/api/v1/tours?fields=price,ratingsAverage
 Accept: text/json
 
 ### GetTourById
-GET http://localhost:3000/api/v1/tours/6303abe589ffb04054cdd399?fields=name,duration
+GET http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26e?fields=name,duration
 Accept: text/json
 
 ### TopFiveCheap
@@ -63,11 +64,11 @@ GET http://localhost:3000/api/v1/tours/monthly-plan/2021
 Accept: text/json
 
 ### UpdateTourById
-PATCH http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26a
+PATCH http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26e
 Content-Type: application/json
 
 {
-  "ratingsAverage": 4.8
+  "name": "Testing Tour"
 }
 
 ### DeleteTourById
