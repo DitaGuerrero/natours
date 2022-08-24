@@ -45,7 +45,7 @@ const tourSchema = new mongoose.Schema(
     },
     priceDiscount: {
       type: Number,
-      // Custom validator, this only will work when creatinga new doc not when
+      // Custom validator works only when creating a new doc not when
       // we are updating an existing one
       validate: {
         validator: function (priceDiscount) {
