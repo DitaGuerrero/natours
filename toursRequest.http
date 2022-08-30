@@ -3,9 +3,9 @@ POST http://localhost:3000/api/v1/tours
 Content-Type: application/json
 
 {
-  "name": "Test Tour 5",
+  "name": "Test",
   "duration": 6,
-  "ratingsAverage": 4.8,
+  "ratingsAverage": 6,
   "price": 797,
   "priceDiscount": 800,
   "ratingsQuantity": 18,
@@ -20,7 +20,7 @@ Content-Type: application/json
     "2023-01-06T10:00:00.000Z"
   ],
   "maxGroupSize": 10,
-  "difficulty": "difficult",
+  "difficulty": "something",
   "summary": "Exciting adventure in the snow with snowboarding and skiting",
   "description": "Sed do eiusmod tempor ncjnsdc jndcjhbsudcb uhsdbc shadbch jhbdhc jbshdbcb jsdhbcgsbdj chbhsdgvcjhsabducywge cuhbdhcbs dhcgvbshd cgsvdcjh sgdchbjsd cbgsadbcj shdcvhsd bchsvdcjhs dbcjhsad bcjashdbc shd cbjasdb cjashdcb jashdb cjashdb cjhsadb cuysbd cjhdbcuysbc jdhscb usydb cjshadcbuaysbcjhdsbcusaybdchjsbdc jsdhcb",
   "imageCover": "tour-3-cover.jpg",
@@ -48,7 +48,7 @@ GET http://localhost:3000/api/v1/tours?fields=price,ratingsAverage
 Accept: text/json
 
 ### GetTourById
-GET http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26e?fields=name,duration
+GET http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b269?fields=name,duration
 Accept: text/json
 
 ### TopFiveCheap
@@ -64,11 +64,12 @@ GET http://localhost:3000/api/v1/tours/monthly-plan/2021
 Accept: text/json
 
 ### UpdateTourById
-PATCH http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b26e
+PATCH http://localhost:3000/api/v1/tours/6305630d137ff3107831556b
 Content-Type: application/json
 
 {
-  "name": "Testing Tour"
+  "name": "The Forest Hiker",
+  "ratingsAverage": 4.7
 }
 
 ### DeleteTourById
