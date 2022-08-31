@@ -1,3 +1,24 @@
+### SignUp
+POST http://localhost:3000/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "name": "Ed",
+  "email": "ed@gmail.com",
+  "password": "12345678",
+  "passwordConfirm": "12345678"
+}
+
+### LogIn
+POST http://localhost:3000/api/v1/users/login
+Content-Type: application/json
+
+{
+  "email": "ed@gmail.com",
+  "password": "12345678"
+}
+
+### GetAllUsers
 GET http://localhost:3000/api/v1/users
 Accept: application/json
 
