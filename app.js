@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const AppError = require('./util/AppError');
-const globlalErrorHandler = require('./error/errorController');
+const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 //  The order middleware appears will be the order they apply to routes
@@ -51,6 +51,6 @@ app.all('*', (req, res, next) => {
 });
 
 // Error handling Built-in
-app.use(globlalErrorHandler);
+app.use(globalErrorHandler);
 
 module.exports = app;

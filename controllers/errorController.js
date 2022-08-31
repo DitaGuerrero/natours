@@ -40,6 +40,7 @@ function handleDuplicatedValue(err) {
 
 function handleValidationErrorDB(err) {
   const errorMessages = Object.values(err.errors).join('.');
+  // 400 Error Code is for Bad requests
   return new AppError(`Validation error occurred: ${errorMessages}`, 400);
 }
 
