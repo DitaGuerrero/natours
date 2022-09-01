@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
       message: 'Confirmation password must be equal to password',
     },
   },
+  passwordChangedAt: Date,
 });
 
 // This is a document middleware, and it will run before
@@ -60,6 +61,19 @@ userSchema.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    // user changed his password after this JWT was created
+    return JWTTimestamp < changedTimestamp;
+  }
+  // User haven't changed its password
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

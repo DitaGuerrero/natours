@@ -3,10 +3,11 @@ POST http://localhost:3000/api/v1/users/signup
 Content-Type: application/json
 
 {
-  "name": "Ed",
-  "email": "ed@gmail.com",
+  "name": "leo",
+  "email": "leo@gmail.com",
   "password": "12345678",
-  "passwordConfirm": "12345678"
+  "passwordConfirm": "12345678",
+  "passwordChangedAt": "2022-08-31"
 }
 
 ### LogIn
@@ -17,6 +18,8 @@ Content-Type: application/json
   "email": "ed@gmail.com",
   "password": "12345678"
 }
+
+> {% client.global.set('token',response.body.token) %}
 
 ### GetAllUsers
 GET http://localhost:3000/api/v1/users

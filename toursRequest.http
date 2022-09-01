@@ -30,6 +30,8 @@ Content-Type: application/json
 ### GetAllTours
 GET http://localhost:3000/api/v1/tours
 Accept: text/json
+Authorization: Bearer {{token}}
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGU4ZTNkOGVhYzVhMzY3MDA2YjZjOCIsImlhdCI6MTY2MTk4Nzc3MywiZXhwIjoxNjY5NzYzNzczfQ.2-VuAtxDPZwk70pPiZDGaQ5I68t3nUtaGT3UqTFDA3o
 
 ### FilterTours
 GET http://localhost:3000/api/v1/tours?duration[gte]=5&difficulty=easy&sort=price&price[lt]=1500

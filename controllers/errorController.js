@@ -44,6 +44,14 @@ function handleValidationErrorDB(err) {
   return new AppError(`Validation error occurred: ${errorMessages}`, 400);
 }
 
+function handleJWTError() {
+  return new AppError('Invalid token. Please login!', 401);
+}
+
+function handleTokenExpiredError() {
+  return new AppError('Token has expired. Please login again!', 401);
+}
+
 module.exports = (err, req, res, _next) => {
   if (process.env.NODE_ENV === 'development') sendErrorDev(err, res);
   if (process.env.NODE_ENV === 'production') {
@@ -62,6 +70,14 @@ module.exports = (err, req, res, _next) => {
       case 'ValidationError':
         const validationError = handleValidationErrorDB(err);
         sendErrorProd(validationError, res);
+        break;
+      case 'JsonWebTokenError':
+        const JWTError = handleJWTError();
+        sendErrorProd(JWTError, res);
+        break;
+      case 'TokenExpiredError':
+        const tokenExpiredError = handleTokenExpiredError();
+        sendErrorProd(tokenExpiredError, res);
         break;
       default:
         sendErrorProd(err, res);
