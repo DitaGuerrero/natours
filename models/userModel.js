@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,11 @@ const userSchema = new mongoose.Schema({
   photo: {
     type: String,
   },
+  role: {
+    type: String,
+    enum: ['user', 'guide', 'lead-guide', 'admin'],
+    default: 'user',
+  },
   password: {
     type: String,
     required: [true, 'Password field is required'],
@@ -38,8 +44,16 @@ const userSchema = new mongoose.Schema({
     },
   },
   passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
+//#region Document Middleware
 // This is a document middleware, and it will run before
 // the data is saved to the DB
 userSchema.pre('save', async function (next) {
@@ -53,9 +67,28 @@ userSchema.pre('save', async function (next) {
   this.passwordConfirm = undefined;
   next();
 });
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+  // Set the passwordChangedAt 1s after, cause it use to execute before
+  // the token has been really issued
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+//#endregion
 
-// Instant method: Method that is going to be available
-// in every document of this collection
+//#region Query middleware
+// (These will execute before a query
+// I mean if we are using any function that starts with find
+userSchema.pre(/^find/, function (next) {
+  // this points to the current query
+  // so, we can concat other find query
+  this.find({ active: { $ne: false } });
+  next();
+});
+//#endregion
+
+//#region Instant methods
+// These are going to be available in every document of this collection
 userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
@@ -75,6 +108,19 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   // User haven't changed its password
   return false;
 };
+
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
+//#endregion
 
 const User = mongoose.model('User', userSchema);
 

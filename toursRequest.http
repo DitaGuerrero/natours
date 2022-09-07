@@ -75,4 +75,5 @@ Content-Type: application/json
 }
 
 ### DeleteTourById
-DELETE http://localhost:3000/api/v1/tours/62fff93ee91f7d2998cbe32e
+DELETE http://localhost:3000/api/v1/tours/6305630d137ff3107831556e
+Authorization: Bearer {{token}}
