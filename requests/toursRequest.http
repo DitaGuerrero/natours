@@ -3,10 +3,10 @@ POST http://localhost:3000/api/v1/tours
 Content-Type: application/json
 
 {
-  "name": "Test",
-  "duration": 6,
-  "ratingsAverage": 6,
-  "price": 797,
+  "name": "Test GBHFGB DFGBDFGB FGB FBG",
+  "duration": 5,
+  "ratingsAverage": 5,
+  "price": 997,
   "priceDiscount": 800,
   "ratingsQuantity": 18,
   "images": [
@@ -20,11 +20,15 @@ Content-Type: application/json
     "2023-01-06T10:00:00.000Z"
   ],
   "maxGroupSize": 10,
-  "difficulty": "something",
+  "difficulty": "easy",
   "summary": "Exciting adventure in the snow with snowboarding and skiting",
   "description": "Sed do eiusmod tempor ncjnsdc jndcjhbsudcb uhsdbc shadbch jhbdhc jbshdbcb jsdhbcgsbdj chbhsdgvcjhsabducywge cuhbdhcbs dhcgvbshd cgsvdcjh sgdchbjsd cbgsadbcj shdcvhsd bchsvdcjhs dbcjhsad bcjashdbc shd cbjasdb cjashdcb jashdb cjashdb cjhsadb cuysbd cjhdbcuysbc jdhscb usydb cjshadcbuaysbcjhdsbcusaybdchjsbdc jsdhcb",
   "imageCover": "tour-3-cover.jpg",
-  "secretTour": true
+  "secretTour": true,
+  "guides": [
+    "6318b308595b8d09c80cbb98",
+    "631132a3778d524714585f8e"
+  ]
 }
 
 ### GetAllTours
@@ -50,7 +54,7 @@ GET http://localhost:3000/api/v1/tours?fields=price,ratingsAverage
 Accept: text/json
 
 ### GetTourById
-GET http://localhost:3000/api/v1/tours/630122b628bbf233ccd3b269?fields=name,duration
+GET http://localhost:3000/api/v1/tours/631a116a0b588d21fcbdf7ee
 Accept: text/json
 
 ### TopFiveCheap

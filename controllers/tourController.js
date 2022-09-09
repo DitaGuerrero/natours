@@ -34,7 +34,7 @@ exports.getAllTours = catchAsync(async (req, res) => {
 
 exports.getTour = catchAsync(async (req, res, next) => {
   const feature = new APIFeatures(
-    Tour.findById(req.params.id),
+    Tour.findById(req.params.id).populate('reviews'),
     req.query
   ).limitFields();
   const tour = await feature.query;

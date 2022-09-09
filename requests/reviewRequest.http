@@ -1,0 +1,20 @@
+### CreateReview
+POST http://localhost:3000/api/v1/tours/5c88fa8cf4afda39709c295a/reviews
+#POST http://localhost:3000/api/v1/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "review": "This one is the first review of this tour",
+  "rating": 4
+}
+
+### GetAllReviews
+GET http://localhost:3000/api/v1/tours/5c88fa8cf4afda39709c295a/reviews
+#GET http://localhost:3000/api/v1/reviews
+Accept: text/json
+Authorization: Bearer {{token}}
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGU4ZTNkOGVhYzVhMzY3MDA2YjZjOCIsImlhdCI6MTY2MTk4Nzc3MywiZXhwIjoxNjY5NzYzNzczfQ.2-VuAtxDPZwk70pPiZDGaQ5I68t3nUtaGT3UqTFDA3o
+
+
+

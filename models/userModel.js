@@ -76,7 +76,7 @@ userSchema.pre('save', function (next) {
 });
 //#endregion
 
-//#region Query middleware
+//#region Query Middleware
 // (These will execute before a query
 // I mean if we are using any function that starts with find
 userSchema.pre(/^find/, function (next) {

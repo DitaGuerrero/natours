@@ -3,11 +3,11 @@ POST http://localhost:3000/api/v1/users/signup
 Content-Type: application/json
 
 {
-  "name": "admin",
-  "email": "admin@gmail.com",
+  "name": " <div>ffsd</div>",
+  "email": "dsd@gmail.com",
   "password": "12345678",
   "passwordConfirm": "12345678",
-  "role": "admin"
+  "role":"user"
 }
 
 ### LogIn
@@ -15,7 +15,7 @@ POST http://localhost:3000/api/v1/users/login
 Content-Type: application/json
 
 {
-  "email": "leo@gmail.com",
+  "email": "ale@gmail.com",
   "password": "12345678"
 }
 

@@ -83,6 +83,41 @@ const tourSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startLocation: {
+      //  GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      // First longitude and latitude
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    //By specifying locations as an array of objects
+    //it will automatically create new documents for each one of them
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    //For embedded documents
+    // guides: Array,
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   // Options to allow the virtual properties to be showed
   // This property doesn't belong to the db, so we can't query for it
@@ -93,17 +128,37 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
-// Virtual properties are properties that derives from properties
+//#region VIRTUAL PROPERTIES
+// are properties that derives from properties
 // that belongs to the schema, but, you don't want to save in the db
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
-// DOCUMENT MIDDLEWARE: runs before .save() and .create() only
+//Virtual populate
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+//#endregion
+
+//#region DOCUMENT MIDDLEWARE: runs before .save() and .create() only
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
+// If we want to embed users inside tours run this middleware
+// tourSchema.pre('save', async function (next) {
+//   const guidesPromises = this.guides.map(async (id) => {
+//     await User.findById(id);
+//   });
+//   this.guides = await Promise.all(guidesPromises);
+//   next();
+// });
+
+//#endregion
 
 // Pre-save-hook o pre-save-middleware
 // tourSchema.pre('save', function (next) {
@@ -117,9 +172,8 @@ tourSchema.pre('save', function (next) {
 //   next();
 // });
 
-// QUERY MIDDLEWARE: find()
-// Using the regular expression we ensure that every method that starts with find
-// will use this middleware
+//#region QUERY MIDDLEWARE: find()
+// Using the regular expression we ensure that every method that starts with find will use this middleware
 tourSchema.pre(/^find/, function (next) {
   // tourSchema.pre('find', function (next) {
   // In query middleware 'this' is a query object
@@ -127,19 +181,31 @@ tourSchema.pre(/^find/, function (next) {
   this.start = Date.now();
   next();
 });
+// tourSchema.post(/^find/, function (docs, next) {
+//   console.log('Time', Date.now() - this.start);
+//   next();
+// });
 
-tourSchema.post(/^find/, function (docs, next) {
-  console.log('Time', Date.now() - this.start);
+// To embed a field that use child referencing
+// I couldn't make it work in post middleware
+tourSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'guides',
+    select: '-__v -password',
+  });
   next();
 });
 
-// AGGREGATION MIDDLEWARE:
+//#endregion
+
+//#region AGGREGATION MIDDLEWARE:
 tourSchema.pre('aggregate', function (next) {
   // 'this' points to the aggregation object
   // console.log(this.pipeline());
   this.pipeline().unshift({ $match: { secretTour: false } });
   next();
 });
+//#endregion
 
 const Tour = mongoose.model('Tour', tourSchema);
 
