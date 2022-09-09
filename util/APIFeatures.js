@@ -11,6 +11,7 @@ class APIFeatures {
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
+    // To add to every operator the missing $ sign
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
     this.query = this.query.find(JSON.parse(queryStr));
