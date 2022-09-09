@@ -21,6 +21,18 @@ function signToken(id) {
 
 const createAndSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
+
+  res.cookie('jwt', token, {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    secure: process.env.NODE_ENV === 'production', //only send by https
+    httpOnly: true, //send automatically in every request by http
+  });
+
+  // Avoid that password returns to the response
+  user.password = undefined;
+
   if (statusCode === 201)
     res.status(statusCode).json({
       status: 'success',
