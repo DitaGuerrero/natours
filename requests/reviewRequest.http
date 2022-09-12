@@ -1,11 +1,11 @@
 ### CreateReview
-POST http://localhost:3000/api/v1/tours/5c88fa8cf4afda39709c295a/reviews
+POST http://localhost:3000/api/v1/tours/5c88fa8cf4afda39709c2974/reviews
 #POST http://localhost:3000/api/v1/reviews
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "review": "This one is the first review of this tour",
+  "review": "testing using the factory handler",
   "rating": 4
 }
 
@@ -15,6 +15,11 @@ GET http://localhost:3000/api/v1/tours/5c88fa8cf4afda39709c295a/reviews
 Accept: text/json
 Authorization: Bearer {{token}}
 #Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGU4ZTNkOGVhYzVhMzY3MDA2YjZjOCIsImlhdCI6MTY2MTk4Nzc3MywiZXhwIjoxNjY5NzYzNzczfQ.2-VuAtxDPZwk70pPiZDGaQ5I68t3nUtaGT3UqTFDA3o
+
+### GetReviewById
+GET http://localhost:3000/api/v1/reviews/631f96defa2baa1b34b6a9d2
+Accept: text/json
+Authorization: Bearer {{token}}
 
 
 
